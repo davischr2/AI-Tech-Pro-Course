@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI for Tech Pros in Seven Days - Comprehensive Lesson Plan</title>
+    <title>AI for Tech Pros in Seven Days - Comprehensive Lesson Plan v2.0</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         /* Emergent.sh Inspired Minimalist Theme */
@@ -730,7 +730,7 @@
                                 </span>
                             </div>
                             
-                            <p class="body-small" style="color: var(--accent-secondary); font-weight: 500; display: flex; align-items: center; gap: 0.5rem;">
+                            <p style="color: #FFFFFF !important; font-weight: 500; font-size: 0.875rem; line-height: 1.4; display: flex; align-items: center; gap: 0.5rem;">
                                 ⬇ Click to expand details
                             </p>
 
@@ -832,11 +832,28 @@
             pdf.text('AI for Tech Pros in Seven Days', margin, 80);
             pdf.text('Comprehensive Lesson Plan', margin, 110);
             
-            let yPosition = 160;
+            // Course Philosophy
+            let yPosition = 150;
+            pdf.setFontSize(16);
+            pdf.setFont('helvetica', 'bold');
+            pdf.text('Course Philosophy', margin, yPosition);
+            yPosition += 30;
+            
+            pdf.setFontSize(11);
+            pdf.setFont('helvetica', 'italic');
+            const philosophyText = pdf.splitTextToSize('"The most important thing isn\'t that you do everything here. The most important thing is that you start. Do something. Learn something. Move in the right direction."', maxWidth);
+            pdf.text(philosophyText, margin, yPosition);
+            yPosition += philosophyText.length * 15 + 10;
+            
+            pdf.setFont('helvetica', 'normal');
+            const subText = pdf.splitTextToSize('We\'re not looking for perfection. We\'re looking for incremental mastery of new ideas that you can apply immediately in your IT work.', maxWidth);
+            pdf.text(subText, margin, yPosition);
+            yPosition += subText.length * 15 + 30;
             
             // Add course content
             courseData.days.forEach((day) => {
-                if (yPosition > pageHeight - 150) {
+                // Check if we need a new page
+                if (yPosition > pageHeight - 200) {
                     pdf.addPage();
                     yPosition = 50;
                 }
@@ -851,18 +868,36 @@
                 // Duration and focus
                 pdf.setFontSize(10);
                 pdf.setFont('helvetica', 'normal');
-                pdf.text(`Duration: ${day.duration} | Focus: ${day.focus}`, margin, yPosition);
-                yPosition += 20;
+                pdf.text(`Duration: ${day.duration}`, margin, yPosition);
+                yPosition += 15;
+                const focusText = pdf.splitTextToSize(`Focus: ${day.focus}`, maxWidth);
+                pdf.text(focusText, margin, yPosition);
+                yPosition += focusText.length * 12 + 10;
+                
+                // Tailored Twist (if exists)
+                if (day.tailoredTwist) {
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.text('Tailored Twist:', margin, yPosition);
+                    yPosition += 15;
+                    pdf.setFont('helvetica', 'normal');
+                    const twistText = pdf.splitTextToSize(day.tailoredTwist, maxWidth);
+                    pdf.text(twistText, margin, yPosition);
+                    yPosition += twistText.length * 12 + 10;
+                }
                 
                 // Description
                 pdf.setFontSize(11);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text('Description:', margin, yPosition);
+                yPosition += 15;
+                pdf.setFont('helvetica', 'normal');
                 const description = pdf.splitTextToSize(day.description, maxWidth);
                 pdf.text(description, margin, yPosition);
                 yPosition += description.length * 15 + 15;
                 
                 // Activities
                 pdf.setFont('helvetica', 'bold');
-                pdf.text('Activities:', margin, yPosition);
+                pdf.text('Key Activities:', margin, yPosition);
                 yPosition += 15;
                 pdf.setFont('helvetica', 'normal');
                 
@@ -875,9 +910,10 @@
                     pdf.text(activityText, margin + 10, yPosition);
                     yPosition += activityText.length * 12 + 5;
                 });
+                yPosition += 10;
                 
                 // Assignment
-                if (yPosition > pageHeight - 100) {
+                if (yPosition > pageHeight - 80) {
                     pdf.addPage();
                     yPosition = 50;
                 }
@@ -888,7 +924,127 @@
                 pdf.setFont('helvetica', 'normal');
                 const assignmentText = pdf.splitTextToSize(day.assignment, maxWidth);
                 pdf.text(assignmentText, margin, yPosition);
-                yPosition += assignmentText.length * 12 + 25;
+                yPosition += assignmentText.length * 12 + 15;
+                
+                // Resources
+                if (day.resources && day.resources.length > 0) {
+                    if (yPosition > pageHeight - 100) {
+                        pdf.addPage();
+                        yPosition = 50;
+                    }
+                    
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.text('Key Resources:', margin, yPosition);
+                    yPosition += 15;
+                    pdf.setFont('helvetica', 'normal');
+                    
+                    day.resources.forEach(resource => {
+                        if (yPosition > pageHeight - 50) {
+                            pdf.addPage();
+                            yPosition = 50;
+                        }
+                        
+                        // Resource name
+                        pdf.setFont('helvetica', 'bold');
+                        const resourceName = pdf.splitTextToSize(`• ${resource.name}`, maxWidth - 20);
+                        pdf.text(resourceName, margin + 10, yPosition);
+                        yPosition += resourceName.length * 12 + 3;
+                        
+                        // Resource URL
+                        if (resource.url) {
+                            pdf.setFont('helvetica', 'normal');
+                            pdf.setFontSize(9);
+                            const urlText = pdf.splitTextToSize(`  URL: ${resource.url}`, maxWidth - 30);
+                            pdf.text(urlText, margin + 20, yPosition);
+                            yPosition += urlText.length * 10 + 2;
+                            pdf.setFontSize(11);
+                        }
+                        
+                        // Resource description
+                        if (resource.description) {
+                            pdf.setFont('helvetica', 'italic');
+                            const descText = pdf.splitTextToSize(`  ${resource.description}`, maxWidth - 30);
+                            pdf.text(descText, margin + 20, yPosition);
+                            yPosition += descText.length * 12 + 8;
+                        } else {
+                            yPosition += 5;
+                        }
+                    });
+                    yPosition += 10;
+                }
+                
+                // Pitfalls/Gotchas
+                if (day.pitfalls && day.pitfalls.length > 0) {
+                    if (yPosition > pageHeight - 120) {
+                        pdf.addPage();
+                        yPosition = 50;
+                    }
+                    
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.text('Common Pitfalls/Gotchas:', margin, yPosition);
+                    yPosition += 15;
+                    
+                    day.pitfalls.forEach(pitfall => {
+                        if (yPosition > pageHeight - 80) {
+                            pdf.addPage();
+                            yPosition = 50;
+                        }
+                        
+                        // Pitfall title
+                        pdf.setFont('helvetica', 'bold');
+                        const pitfallTitle = pdf.splitTextToSize(`• ${pitfall.title}:`, maxWidth - 20);
+                        pdf.text(pitfallTitle, margin + 10, yPosition);
+                        yPosition += pitfallTitle.length * 12 + 5;
+                        
+                        // Pitfall description
+                        pdf.setFont('helvetica', 'normal');
+                        const pitfallDesc = pdf.splitTextToSize(`  ${pitfall.description}`, maxWidth - 30);
+                        pdf.text(pitfallDesc, margin + 20, yPosition);
+                        yPosition += pitfallDesc.length * 12 + 5;
+                        
+                        // Pitfall tip
+                        pdf.setFont('helvetica', 'italic');
+                        const tipText = pdf.splitTextToSize(`  Tip: ${pitfall.tip}`, maxWidth - 30);
+                        pdf.text(tipText, margin + 20, yPosition);
+                        yPosition += tipText.length * 12 + 10;
+                    });
+                    yPosition += 15;
+                }
+                
+                // Add separator between days
+                yPosition += 20;
+            });
+            
+            // Add additional resources section
+            if (yPosition > pageHeight - 150) {
+                pdf.addPage();
+                yPosition = 50;
+            }
+            
+            pdf.setFontSize(16);
+            pdf.setFont('helvetica', 'bold');
+            pdf.text('Additional Learning Resources', margin, yPosition);
+            yPosition += 30;
+            
+            pdf.setFontSize(11);
+            pdf.setFont('helvetica', 'normal');
+            const additionalInfo = [
+                '• 100+ curated resources and links for each learning day',
+                '• 50+ no-code tools with free-tier access',
+                '• 8 practical projects for real-world IT applications',
+                '• Interactive elements and automation workflows',
+                '• Voice agents and AI integration examples',
+                '• Complete MVP development framework'
+            ];
+            
+            additionalInfo.forEach(info => {
+                if (yPosition > pageHeight - 50) {
+                    pdf.addPage();
+                    yPosition = 50;
+                }
+                const infoText = pdf.splitTextToSize(info, maxWidth);
+                pdf.text(infoText, margin, yPosition);
+                yPosition += infoText.length * 15 + 5;
             });
             
             // Footer
@@ -896,11 +1052,12 @@
             for (let i = 1; i <= totalPages; i++) {
                 pdf.setPage(i);
                 pdf.setFontSize(8);
-                pdf.text(`AI for Tech Pros Course - Page ${i} of ${totalPages}`, margin, pageHeight - 30);
+                pdf.setFont('helvetica', 'normal');
+                pdf.text(`AI for Tech Pros Course - Complete Guide - Page ${i} of ${totalPages}`, margin, pageHeight - 30);
                 pdf.text('Source: https://www.cloudauditcontrols.com/2025/07/ai-for-tech-pros-in-seven-days.html', margin, pageHeight - 15);
             }
             
-            pdf.save('AI-for-Tech-Pros-Seven-Days-Course.pdf');
+            pdf.save('AI-for-Tech-Pros-Seven-Days-Complete-Guide.pdf');
         }
 
         // Initialize the page
