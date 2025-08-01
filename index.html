@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI for Tech Pros in Seven Days - Comprehensive Lesson Plan</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /* Emergent.sh Inspired Minimalist Theme */
+        :root {
+          --bg-primary: #0a0a0a;
+          --bg-secondary: #111111;
+          --bg-section: #0f0f0f;
+          --bg-hover: #1a1a1a;
+          --text-primary: #ffffff;
+          --text-secondary: #a0a0a0;
+          --text-muted: #666666;
+          --text-disabled: #404040;
+          --border-light: rgba(255, 255, 255, 0.08);
+          --border-medium: rgba(255, 255, 255, 0.12);
+          --border-strong: rgba(255, 255, 255, 0.16);
+          --accent-primary: #ffffff;
+          --accent-hover: #f5f5f5;
+          --accent-text: #ffffff;
+          --accent-secondary: #4a90e2;
+          --accent-background: rgba(255, 255, 255, 0.08);
+          --gradient-hero: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+        }
+
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          background: var(--bg-primary);
+          color: var(--text-primary);
+          line-height: 1.6;
+        }
+
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 1.5rem;
+        }
+
+        .nav-header {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 50;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 1rem 2rem;
+          height: 4rem;
+          background: rgba(10, 10, 10, 0.9);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-bottom: 1px solid var(--border-light);
+          box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .heading-1 {
+          font-weight: 700;
+          font-size: clamp(2.5rem, 5vw, 4.5rem);
+          line-height: 1.1;
+          letter-spacing: -0.02em;
+          color: var(--text-primary);
+        }
+
+        .heading-2 {
+          font-weight: 600;
+          font-size: clamp(2rem, 4vw, 3rem);
+          line-height: 1.2;
+          letter-spacing: -0.015em;
+          color: var(--text-primary);
+        }
+
+        .heading-3 {
+          font-weight: 600;
+          font-size: clamp(1.25rem, 3vw, 1.5rem);
+          line-height: 1.3;
+          letter-spacing: -0.01em;
+          color: var(--text-primary);
+        }
+
+        .body-large {
+          font-weight: 400;
+          font-size: clamp(1.125rem, 2.5vw, 1.25rem);
+          line-height: 1.6;
+          color: var(--text-secondary);
+        }
+
+        .body-medium {
+          font-weight: 400;
+          font-size: clamp(1rem, 2vw, 1.125rem);
+          line-height: 1.5;
+          color: var(--text-secondary);
+        }
+
+        .body-small {
+          font-weight: 400;
+          font-size: 0.875rem;
+          line-height: 1.4;
+          color: var(--text-muted);
+        }
+
+        .btn-primary {
+          background: var(--accent-primary);
+          color: #000000;
+          border: none;
+          border-radius: 12px;
+          padding: 14px 24px;
+          font-weight: 600;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          min-height: 48px;
+          box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+        }
+
+        .btn-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
+          background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+          background: transparent;
+          color: var(--text-primary);
+          border: 1px solid var(--border-medium);
+          border-radius: 12px;
+          padding: 14px 24px;
+          font-weight: 500;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          min-height: 48px;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+        }
+
+        .btn-secondary:hover {
+          background: var(--bg-hover);
+          border-color: var(--accent-primary);
+          color: var(--accent-primary);
+        }
+
+        .hero-section {
+          background: var(--bg-primary);
+          background-image: var(--gradient-hero);
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: 8rem 1.5rem 4rem;
+        }
+
+        .hero-content {
+          max-width: 900px;
+          margin: 0 auto;
+        }
+
+        .section {
+          padding: 4rem 0;
+        }
+
+        .section-alt {
+          background: var(--bg-section);
+          padding: 4rem 0;
+        }
+
+        .stat-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-light);
+          border-radius: 50px;
+          padding: 8px 16px;
+          font-size: 0.875rem;
+          color: var(--text-secondary);
+        }
+
+        .day-card {
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-light);
+          border-radius: 16px;
+          padding: 24px;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          margin-bottom: 1.5rem;
+        }
+
+        .day-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+          border-color: var(--accent-secondary);
+          background: linear-gradient(135deg, var(--bg-secondary), var(--bg-hover));
+        }
+
+        .day-pill {
+          background: var(--accent-background);
+          color: var(--accent-primary);
+          border-radius: 50px;
+          width: 56px;
+          height: 56px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          font-size: 1.1rem;
+          flex-shrink: 0;
+          border: 2px solid transparent;
+          transition: all 0.3s ease;
+        }
+
+        .day-details {
+          max-height: 0;
+          opacity: 0;
+          overflow: hidden;
+          transition: all 0.4s ease;
+          padding-top: 0;
+        }
+
+        .day-details.expanded {
+          max-height: 2000px;
+          opacity: 1;
+          padding-top: 1.5rem;
+        }
+
+        .custom-list {
+          list-style: none;
+          padding-left: 0;
+        }
+
+        .custom-list li {
+          position: relative;
+          padding-left: 1.5rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .custom-list li::before {
+          content: '→';
+          position: absolute;
+          left: 0;
+          color: var(--accent-secondary);
+          font-weight: 600;
+        }
+
+        .pro-tip {
+          background: linear-gradient(135deg, var(--accent-background), rgba(255, 255, 255, 0.02));
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          padding: 1rem;
+          margin-top: 1rem;
+        }
+
+        .link {
+          color: var(--accent-secondary);
+          text-decoration: none;
+          font-weight: 500;
+          transition: all 0.2s ease;
+        }
+
+        .link:hover {
+          color: var(--accent-primary);
+          text-decoration: underline;
+        }
+
+        .resource-card {
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-light);
+          border-radius: 16px;
+          padding: 2rem;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          height: 100%;
+        }
+
+        .resource-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+          border-color: var(--accent-secondary);
+        }
+
+        .chevron {
+          transition: transform 0.2s ease;
+        }
+
+        .chevron.rotated {
+          transform: rotate(90deg);
+        }
+
+        @media (max-width: 768px) {
+          .nav-header {
+            padding: 1rem;
+            flex-direction: column;
+            gap: 1rem;
+            height: auto;
+            background: var(--bg-primary);
+          }
+          
+          .hero-section {
+            padding: 6rem 1rem 3rem;
+            min-height: 90vh;
+          }
+          
+          .container {
+            padding: 0 1rem;
+          }
+          
+          .btn-primary,
+          .btn-secondary {
+            width: 100%;
+            min-height: 52px;
+          }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <div class="heading-3">AI Tech Pro Course</div>
+        <button class="btn-primary" onclick="generatePDF()">
+            📄 Download Guide
+        </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="heading-1" style="margin-bottom: 1.5rem;">
+                AI for Tech Pros in Seven Days
+            </h1>
+            <p class="body-large" style="margin-bottom: 1rem; color: var(--text-primary); max-width: 700px; margin: 0 auto 1rem;">
+                Comprehensive Lesson Plan
+            </p>
+            <p class="body-medium" style="margin-bottom: 3rem; color: var(--text-secondary); max-width: 800px; margin: 0 auto 3rem;">
+                Master AI tools without coding. Transform your IT skills with practical, hands-on learning designed for tech professionals with years of experience.
+            </p>
+            
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 3rem;">
+                <div class="stat-pill">
+                    🕒 <span>30 hours total</span>
+                </div>
+                <div class="stat-pill">
+                    🎯 <span>No-code focus</span>
+                </div>
+                <div class="stat-pill">
+                    👥 <span>IT professionals</span>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button class="btn-primary" style="font-size: 1.125rem; padding: 16px 32px;" onclick="scrollToSection('course-overview')">
+                    📚 Start Learning Journey
+                </button>
+                <button class="btn-secondary" style="font-size: 1.125rem; padding: 16px 32px;" onclick="generatePDF()">
+                    📄 Get PDF Guide
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="section-alt">
+        <div class="container" style="text-align: center;">
+            <h2 class="heading-2" style="margin-bottom: 2rem;">
+                Course Philosophy
+            </h2>
+            <div style="max-width: 900px; margin: 0 auto;">
+                <p class="body-large" style="margin-bottom: 2rem; color: var(--text-primary); font-style: italic; font-size: 1.25rem;">
+                    "The most important thing isn't that you do everything here. The most important thing is that you start. Do something. Learn something. Move in the right direction."
+                </p>
+                <p class="body-medium" style="margin-bottom: 2rem; color: var(--text-secondary);">
+                    We're not looking for perfection. We're looking for <span style="color: var(--accent-secondary); font-weight: 600;">incremental mastery</span> of new ideas that you can apply immediately in your IT work.
+                </p>
+                <p class="heading-3" style="color: var(--accent-secondary);">
+                    You've got this. 💪
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Overview -->
+    <section id="course-overview" class="section">
+        <div class="container">
+            <h2 class="heading-2" style="text-align: center; margin-bottom: 1rem;">
+                Complete Learning Path
+            </h2>
+            <p class="body-large" style="text-align: center; margin-bottom: 3rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 3rem;">
+                Click on each day to see detailed activities, resources, assignments, and pro tips
+            </p>
+            
+            <div style="display: grid; gap: 2rem; max-width: 1000px; margin: 0 auto;" id="day-cards">
+                <!-- Day cards will be generated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Started to Explore -->
+    <section class="section">
+        <div class="container">
+            <h2 class="heading-2" style="text-align: center; margin-bottom: 3rem;">
+                Get Started to Explore
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="resource-card">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                        <div style="color: var(--accent-secondary);">🔗</div>
+                        <h3 class="heading-3">100+ Resources</h3>
+                    </div>
+                    <p class="body-medium" style="margin-bottom: 1rem; color: var(--text-secondary);">
+                        Curated links to tools, tutorials, and platforms for each learning day
+                    </p>
+                    <span class="body-small" style="color: var(--accent-secondary); font-weight: 600;">
+                        Videos, Tools, Courses
+                    </span>
+                </div>
+
+                <div class="resource-card">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                        <div style="color: var(--accent-secondary);">🎯</div>
+                        <h3 class="heading-3">50+ No-Code Tools</h3>
+                    </div>
+                    <p class="body-medium" style="margin-bottom: 1rem; color: var(--text-secondary);">
+                        Free-tier platforms and tools ready to use—no installation headaches
+                    </p>
+                    <span class="body-small" style="color: var(--accent-secondary); font-weight: 600;">
+                        Ollama, n8n, Claude, VAPI
+                    </span>
+                </div>
+
+                <div class="resource-card">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                        <div style="color: var(--accent-secondary);">✅</div>
+                        <h3 class="heading-3">8 Practical Projects</h3>
+                    </div>
+                    <p class="body-medium" style="margin-bottom: 1rem; color: var(--text-secondary);">
+                        Real-world IT applications and assignments you can use immediately
+                    </p>
+                    <span class="body-small" style="color: var(--accent-secondary); font-weight: 600;">
+                        Agents, Automations, MVPs
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download CTA -->
+    <section class="section-alt">
+        <div class="container" style="text-align: center;">
+            <h2 class="heading-2" style="margin-bottom: 1rem;">
+                Ready to Transform Your AI Skills?
+            </h2>
+            <p class="body-large" style="margin-bottom: 2rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem;">
+                Download the complete lesson plan and start your journey from IT professional to AI-powered tech expert.
+            </p>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button class="btn-primary" style="font-size: 1.125rem; padding: 16px 32px;" onclick="generatePDF()">
+                    📄 Download Full Guide (PDF)
+                </button>
+                <button class="btn-secondary" style="font-size: 1.125rem; padding: 16px 32px;" onclick="scrollToSection('course-overview')">
+                    📅 View Course Details
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="padding: 3rem 0; border-top: 1px solid var(--border-light);">
+        <div class="container" style="text-align: center;">
+            <p class="body-small" style="margin-bottom: 1rem; color: var(--text-secondary);">
+                Source: <a href="https://www.cloudauditcontrols.com/2025/07/ai-for-tech-pros-in-seven-days.html" 
+                          class="link" target="_blank" rel="noopener noreferrer">
+                    Cloud Audit Controls Blog
+                </a> • Perfect for GitHub Pages hosting
+            </p>
+            <p class="body-small" style="color: var(--text-muted);">
+                Created for IT professionals ready to embrace AI • No coding required
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Course data
+        const courseData = {
+            days: [
+                {
+                    id: 0,
+                    title: "Day 0: Orientation and Mindset Shift",
+                    duration: "2 hours",
+                    focus: "Bridge your IT experience to AI—no code needed.",
+                    tailoredTwist: "Bridge your IT experience to AI—no code needed.",
+                    description: "Review the full lesson plan; set personal goals (e.g., \"Automate my daily IT reports\"). Watch intro videos on AI basics to shift mindset from traditional IT to AI-enhanced workflows. Join no-code communities for ongoing support.",
+                    activities: [
+                        "Review the full lesson plan and set personal goals (e.g., \"Automate my daily IT reports\")",
+                        "Watch intro videos on AI basics to shift mindset from traditional IT to AI-enhanced workflows", 
+                        "Join no-code communities for ongoing support"
+                    ],
+                    assignment: "Create a Notion journal page: Answer \"How has IT prepared me for AI?\" and list 3 goals.",
+                    resources: [
+                        { name: "Google AI Essentials", description: "free intro course, no coding", url: "https://grow.google/certificates/ai-essentials/" },
+                        { name: "YouTube: \"Become an AI Engineer and build the future!!\"", description: "intro to AI generalist skills", url: "https://www.youtube.com/shorts/_6jvVAIAsSA" }
+                    ],
+                    pitfalls: [
+                        { title: "Overloading on Tools Too Early", description: "Don't install everything at once—focus on Day 1 needs first to avoid setup fatigue.", tip: "Prioritize Ollama if your machine has a GPU for smoother local runs." },
+                        { title: "Ignoring Account Sign-Ups", description: "Free tiers require email verification; delays happen if you use a work email with strict filters.", tip: "Use a personal Gmail for quick access." }
+                    ]
+                },
+                {
+                    id: 1,
+                    title: "Day 1: AI Fundamentals and Local Playground",
+                    duration: "4 hours",
+                    focus: "Relate LLMs to IT databases—querying data without SQL.",
+                    tailoredTwist: "Relate LLMs to IT databases—querying data without SQL.",
+                    description: "Learn LLMs and transformers, practice prompt engineering, deploy models using Ollama, Msty, and Bolt, and chain prompts for complex outputs.",
+                    activities: [
+                        "Fundamentals (1 hour): Learn LLMs and transformers; watch intro resources",
+                        "Prompt Engineering (1 hour): Practice techniques in OpenAI Playground", 
+                        "Deploy Models (1.5 hours): Use Ollama, Msty, and Bolt; test queries",
+                        "Pipelines (30 mins): Chain prompts for complex outputs; take a 10-min break if needed"
+                    ],
+                    assignment: "5 custom prompts; local query on a personal topic (e.g., \"Summarize an IT report\").",
+                    resources: [
+                        { name: "Ollama", url: "https://ollama.com/" },
+                        { name: "OpenAI Playground", url: "https://platform.openai.com/playground" },
+                        { name: "YouTube: \"Run AI Models Locally: Ollama Tutorial\"", url: "https://www.youtube.com/watch?v=Lb5D892-2HY" }
+                    ],
+                    pitfalls: [
+                        { title: "Hardware Mismatch for Local Models", description: "Ollama may run slow on older CPUs—expect longer load times if no GPU.", tip: "Test with small models like \"llama3:8b\" first; switch to cloud if needed." },
+                        { title: "Poor Prompting Habits", description: "Vague prompts yield junk outputs, like asking \"Explain AI\" without context.", tip: "Always specify role, format, and examples—e.g., \"As an IT expert, explain LLMs in bullet points.\"" }
+                    ]
+                },
+                {
+                    id: 2,
+                    title: "Day 2: Media Generation and Clones",
+                    duration: "4 hours",
+                    focus: "Use for IT visuals (e.g., generate diagrams for reports).",
+                    tailoredTwist: "Use for IT visuals (e.g., generate diagrams for reports).",
+                    description: "Create images with Midjourney, videos with Runway and Veed.io, voice clones with ElevenLabs, and combine all elements for full media production.",
+                    activities: [
+                        "Images (1 hour): Prompt and refine in Midjourney",
+                        "Videos (1 hour): Animate and edit in Runway and Veed.io",
+                        "Voice Cloning (1 hour): Use ElevenLabs; test outputs",
+                        "Integration (1 hour): Combine for a full clone; include short breaks between tests"
+                    ],
+                    assignment: "30-sec clone video (e.g., IT tutorial avatar); experiment with variations.",
+                    resources: [
+                        { name: "Midjourney", url: "https://www.midjourney.com/" },
+                        { name: "ElevenLabs", url: "https://elevenlabs.io/" },
+                        { name: "Runway", url: "https://runwayml.com/" }
+                    ],
+                    pitfalls: [
+                        { title: "Discord Overwhelm for Midjourney", description: "As an IT pro, you might skip the bot commands—prompts fail without \"/imagine\".", tip: "Watch a 5-min Discord tutorial; start in a private server." }
+                    ]
+                },
+                {
+                    id: 3,
+                    title: "Day 3: Automations for IT Workflows",
+                    duration: "4 hours",
+                    focus: "Build expense trackers as \"ticket automators\" using your IT flow knowledge.",
+                    tailoredTwist: "Build expense trackers as \"ticket automators\" using your IT flow knowledge; extend to predictive IT tasks like ticket forecasting.",
+                    description: "Learn triggers and actions, create n8n workflows, build AI-integrated trackers using Make, Tally, and Akkio for predictions like IT downtime forecasting.",
+                    activities: [
+                        "Intro (45 mins): Triggers and actions overview",
+                        "Setup (1 hour): Create n8n workflow; compare with Zapier",
+                        "Build Tracker (1.5 hours): Integrate AI for categorization using Make, Tally, and Akkio",
+                        "Modules (45 mins): Explore advanced features like loops; pause for testing"
+                    ],
+                    assignment: "Build a second automation (e.g., IT ticket forecasting with Akkio); document with screenshots.",
+                    resources: [
+                        { name: "n8n", url: "https://n8n.io/" },
+                        { name: "Zapier", url: "https://zapier.com/" },
+                        { name: "Make", url: "https://www.make.com/" }
+                    ],
+                    pitfalls: [
+                        { title: "Connection Failures", description: "n8n/Zapier integrations break if API keys expire or permissions are wrong—common in IT setups.", tip: "Double-check OAuth during setup; refresh tokens if errors occur." }
+                    ]
+                },
+                {
+                    id: 4,
+                    title: "Day 4: Building AI Agents",
+                    duration: "4 hours",
+                    focus: "Agents as \"smart assistants\" for IT tasks (e.g., research troubleshooting or predictive alerts).",
+                    tailoredTwist: "Agents as \"smart assistants\" for IT tasks (e.g., research troubleshooting or predictive alerts).",
+                    description: "Learn agent concepts, configure tools in LangChain and AutoGPT, build research agents with multi-steps using CreateAI, AgentCloud, and Lindy AI.",
+                    activities: [
+                        "Basics (1 hour): Agents and autonomy concepts",
+                        "Setup (1 hour): Configure tools in LangChain and AutoGPT",
+                        "Build (1.5 hours): Research agent with multi-steps using CreateAI, AgentCloud, and Lindy AI",
+                        "Refine (30 mins): Add memory and testing; short break for debugging"
+                    ],
+                    assignment: "Build an agent for a practical IT task (e.g., \"Research network error fixes with Lindy AI\"); log outputs.",
+                    resources: [
+                        { name: "LangChain", url: "https://www.langchain.com/" },
+                        { name: "AutoGPT", url: "https://agpt.co/" },
+                        { name: "Lindy AI", url: "https://www.lindy.ai/" }
+                    ],
+                    pitfalls: [
+                        { title: "Infinite Loops", description: "Agents can loop on tasks if prompts aren't bounded, eating API credits.", tip: "Add \"Stop after 5 steps\" in instructions; monitor runs closely." }
+                    ]
+                },
+                {
+                    id: 5,
+                    title: "Day 5: Advanced Integrations with MCPs",
+                    duration: "4 hours",
+                    focus: "MCPs for data fetching, like pulling IT logs into AI for analysis.",
+                    tailoredTwist: "MCPs for data fetching, like pulling IT logs into AI for analysis.",
+                    description: "Learn MCP concepts, build personas in Claude and Perplexity, create micro apps and servers with Apify, Kite, VAPI, and generate stylized reports.",
+                    activities: [
+                        "Intro (1 hour): MCP concepts from docs",
+                        "Build (1 hour): Personas in Claude and Perplexity",
+                        "Advanced (1.5 hours): Micro apps and servers with Apify, Kite, VAPI",
+                        "Test (30 mins): Generate a stylized report; break for verification"
+                    ],
+                    assignment: "MCP for generating content from files (e.g., IT log analysis); test personas.",
+                    resources: [
+                        { name: "Claude", url: "https://claude.ai/" },
+                        { name: "Perplexity", url: "https://www.perplexity.ai/" },
+                        { name: "VAPI", url: "https://vapi.ai/" }
+                    ],
+                    pitfalls: [
+                        { title: "Context Overload", description: "Uploading too much data to Claude crashes sessions—common for IT folks with big files.", tip: "Chunk data; start with small tests." }
+                    ]
+                },
+                {
+                    id: 6,
+                    title: "Day 6: Voice Agents and Tech Deep Dive",
+                    duration: "4 hours",
+                    focus: "Voice bots for IT support (e.g., querying knowledge bases hands-free or alerting on predictions).",
+                    tailoredTwist: "Voice bots for IT support (e.g., querying knowledge bases hands-free or alerting on predictions).",
+                    description: "Learn APIs and embeddings, set up VAPI with advanced prompting, build bots with Whisper transcription, and deploy conversation systems.",
+                    activities: [
+                        "Tech 101 (45 mins): APIs and embeddings overview",
+                        "Basics (1 hour): VAPI setup with advanced prompting; incorporate CodeLlama",
+                        "Build (1.5 hours): Bot with transcription via Whisper and functions",
+                        "Deploy (45 mins): Test and refine conversations; take breaks between calls"
+                    ],
+                    assignment: "Build a scheduler voice agent (e.g., for IT meetings with predictive alerts); record tests.",
+                    resources: [
+                        { name: "VAPI", url: "https://vapi.ai/" },
+                        { name: "Whisper", url: "https://openai.com/index/whisper/" }
+                    ],
+                    pitfalls: [
+                        { title: "Audio Quality Issues", description: "Poor mic input makes Whisper transcription inaccurate—echoes your IT audio troubleshooting.", tip: "Use a quiet room; test with clear speech." }
+                    ]
+                },
+                {
+                    id: 7,
+                    title: "Day 7: MVP Build and Capstone",
+                    duration: "4 hours",
+                    focus: "Build an IT-focused MVP (e.g., automated dashboard with predictions).",
+                    tailoredTwist: "Build an IT-focused MVP (e.g., automated dashboard with predictions).",
+                    description: "Brainstorm ideas, design in Framer, build agents with embeddings using Softr and Tally, automate features with Bubble and Make, deploy and demo.",
+                    activities: [
+                        "Ideate (45 mins): Brainstorm ideas",
+                        "Design (1 hour): Sketch in Framer",
+                        "Build Jerry (1 hour): Agent with embeddings using Softr and Tally",
+                        "MVP and Ship (1.15 hours): Automate features with Bubble and Make; deploy and demo"
+                    ],
+                    assignment: "Deploy MVP; prepare a 1-min self-pitch on how it applies to your IT work. Earn a badge via Google AI Essentials.",
+                    resources: [
+                        { name: "Bubble", url: "https://bubble.io/" },
+                        { name: "Framer", url: "https://www.framer.com/" },
+                        { name: "Make", url: "https://www.make.com/" }
+                    ],
+                    pitfalls: [
+                        { title: "Scope Creep", description: "Adding too many features mid-build crashes no-code apps like Bubble.", tip: "Stick to 3 core functions; iterate post-MVP." }
+                    ]
+                }
+            ]
+        };
+
+        // Generate day cards
+        function generateDayCards() {
+            const container = document.getElementById('day-cards');
+            container.innerHTML = '';
+
+            courseData.days.forEach(day => {
+                const dayCard = document.createElement('div');
+                dayCard.className = 'day-card';
+                dayCard.onclick = () => toggleDay(day.id);
+                
+                dayCard.innerHTML = `
+                    <div style="display: flex; align-items: flex-start; gap: 1.5rem;">
+                        <div class="day-pill">
+                            ${day.title.startsWith('Day 0') ? '0' : day.id}
+                        </div>
+                        
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+                                <h3 class="heading-3">${day.title}</h3>
+                                <div class="chevron" id="chevron-${day.id}" style="color: var(--accent-secondary);">
+                                    ▶
+                                </div>
+                            </div>
+                            
+                            ${day.tailoredTwist ? `<p class="body-small" style="margin-bottom: 0.5rem; color: var(--accent-secondary); font-weight: 600;">Tailored Twist: ${day.tailoredTwist}</p>` : ''}
+                            
+                            <p class="body-medium" style="margin-bottom: 0.75rem; color: var(--text-secondary);">
+                                ${day.description}
+                            </p>
+                            
+                            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+                                <span class="body-small" style="color: var(--accent-secondary); display: flex; align-items: center; gap: 4px;">
+                                    🕒 ${day.duration}
+                                </span>
+                                <span class="body-small" style="color: var(--text-muted);">
+                                    ${day.focus}
+                                </span>
+                            </div>
+                            
+                            <p class="body-small" style="color: var(--accent-secondary); font-weight: 500; display: flex; align-items: center; gap: 0.5rem;">
+                                ⬇ Click to expand details
+                            </p>
+
+                            <div class="day-details" id="details-${day.id}">
+                                <div style="border-top: 1px solid var(--border-light); padding-top: 1.5rem;">
+                                    <h4 class="body-medium" style="font-weight: 600; margin-bottom: 1rem; color: var(--text-primary);">
+                                        Key Activities:
+                                    </h4>
+                                    <ul class="custom-list" style="margin-bottom: 1.5rem;">
+                                        ${day.activities.map(activity => `<li class="body-small">${activity}</li>`).join('')}
+                                    </ul>
+                                    
+                                    <h4 class="body-medium" style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-primary);">
+                                        Assignment:
+                                    </h4>
+                                    <p class="body-small" style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                                        ${day.assignment}
+                                    </p>
+                                    
+                                    <h4 class="body-medium" style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-primary);">
+                                        Key Resources:
+                                    </h4>
+                                    <ul class="custom-list" style="margin-bottom: 1.5rem;">
+                                        ${day.resources.map(resource => `
+                                            <li class="body-small">
+                                                <strong>${resource.name}</strong>
+                                                ${resource.url ? `: <a href="${resource.url}" class="link" target="_blank" rel="noopener noreferrer">${resource.url}</a>` : ''}
+                                                ${resource.description ? ` - <span style="color: var(--text-muted)">${resource.description}</span>` : ''}
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                    
+                                    ${day.pitfalls ? `
+                                        <div class="pro-tip">
+                                            <div style="color: var(--accent-secondary); font-weight: 600; font-size: 0.875rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                                ⚠️ Common Pitfalls/Gotchas:
+                                            </div>
+                                            ${day.pitfalls.map(pitfall => `
+                                                <div style="margin-bottom: 1rem;">
+                                                    <p class="body-small" style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.25rem;">
+                                                        ${pitfall.title}:
+                                                    </p>
+                                                    <p class="body-small" style="color: var(--text-secondary); margin-bottom: 0.5rem;">
+                                                        ${pitfall.description}
+                                                    </p>
+                                                    <p class="body-small" style="color: var(--accent-secondary); margin: 0;">
+                                                        Tip: ${pitfall.tip}
+                                                    </p>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(dayCard);
+            });
+        }
+
+        // Toggle day expansion
+        function toggleDay(dayId) {
+            const details = document.getElementById(`details-${dayId}`);
+            const chevron = document.getElementById(`chevron-${dayId}`);
+            
+            if (details.classList.contains('expanded')) {
+                details.classList.remove('expanded');
+                chevron.innerHTML = '▶';
+                chevron.classList.remove('rotated');
+            } else {
+                details.classList.add('expanded');
+                chevron.innerHTML = '▼';
+                chevron.classList.add('rotated');
+            }
+        }
+
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Generate PDF
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'pt', 'a4');
+            const pageWidth = pdf.internal.pageSize.width;
+            const pageHeight = pdf.internal.pageSize.height;
+            const margin = 50;
+            const maxWidth = pageWidth - (margin * 2);
+            
+            // Title
+            pdf.setFontSize(24);
+            pdf.setFont('helvetica', 'bold');
+            pdf.text('AI for Tech Pros in Seven Days', margin, 80);
+            pdf.text('Comprehensive Lesson Plan', margin, 110);
+            
+            let yPosition = 160;
+            
+            // Add course content
+            courseData.days.forEach((day) => {
+                if (yPosition > pageHeight - 150) {
+                    pdf.addPage();
+                    yPosition = 50;
+                }
+                
+                // Day title
+                pdf.setFontSize(14);
+                pdf.setFont('helvetica', 'bold');
+                const dayTitle = pdf.splitTextToSize(day.title, maxWidth);
+                pdf.text(dayTitle, margin, yPosition);
+                yPosition += dayTitle.length * 18 + 10;
+                
+                // Duration and focus
+                pdf.setFontSize(10);
+                pdf.setFont('helvetica', 'normal');
+                pdf.text(`Duration: ${day.duration} | Focus: ${day.focus}`, margin, yPosition);
+                yPosition += 20;
+                
+                // Description
+                pdf.setFontSize(11);
+                const description = pdf.splitTextToSize(day.description, maxWidth);
+                pdf.text(description, margin, yPosition);
+                yPosition += description.length * 15 + 15;
+                
+                // Activities
+                pdf.setFont('helvetica', 'bold');
+                pdf.text('Activities:', margin, yPosition);
+                yPosition += 15;
+                pdf.setFont('helvetica', 'normal');
+                
+                day.activities.forEach(activity => {
+                    if (yPosition > pageHeight - 50) {
+                        pdf.addPage();
+                        yPosition = 50;
+                    }
+                    const activityText = pdf.splitTextToSize(`• ${activity}`, maxWidth - 20);
+                    pdf.text(activityText, margin + 10, yPosition);
+                    yPosition += activityText.length * 12 + 5;
+                });
+                
+                // Assignment
+                if (yPosition > pageHeight - 100) {
+                    pdf.addPage();
+                    yPosition = 50;
+                }
+                
+                pdf.setFont('helvetica', 'bold');
+                pdf.text('Assignment:', margin, yPosition);
+                yPosition += 15;
+                pdf.setFont('helvetica', 'normal');
+                const assignmentText = pdf.splitTextToSize(day.assignment, maxWidth);
+                pdf.text(assignmentText, margin, yPosition);
+                yPosition += assignmentText.length * 12 + 25;
+            });
+            
+            // Footer
+            const totalPages = pdf.internal.getNumberOfPages();
+            for (let i = 1; i <= totalPages; i++) {
+                pdf.setPage(i);
+                pdf.setFontSize(8);
+                pdf.text(`AI for Tech Pros Course - Page ${i} of ${totalPages}`, margin, pageHeight - 30);
+                pdf.text('Source: https://www.cloudauditcontrols.com/2025/07/ai-for-tech-pros-in-seven-days.html', margin, pageHeight - 15);
+            }
+            
+            pdf.save('AI-for-Tech-Pros-Seven-Days-Course.pdf');
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            generateDayCards();
+        });
+    </script>
+</body>
+</html>
